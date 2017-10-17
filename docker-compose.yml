@@ -1,0 +1,58 @@
+version: "2"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: wpd-db
+    environment:
+      MYSQL_ROOT_PASSWORD: wpdocker
+      MYSQL_USER: wpdocker
+      MYSQL_PASSWORD: wpdocker
+      MYSQL_DATABASE: wpdocker
+    volumes:
+      - ./data:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: wpd-phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: wpd
+    ports:
+      - 8081:80
+
+  fpm:
+    build:
+      context: ./php-fpm
+    image: wpd-php
+    container_name: wpd-php
+    links:
+      - mariadb
+    expose:
+      - "9000"
+    volumes:
+    - ./code:/var/www/html
+    - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+    restart: always
+
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        - PHP_UPSTREAM=fpm
+    container_name: wpd-http
+    depends_on:
+      - fpm
+    ports:
+      - 8080:80
+    links:
+      - fpm
+      - mariadb
+      - redis
+    volumes:
+      - ./code:/var/www/html
+      - ./conf/nginx/sites:/etc/nginx/sites-available
+      - ./conf/nginx/logs:/var/log/nginx
+    restart: always
