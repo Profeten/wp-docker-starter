@@ -14,4 +14,20 @@ started with your Wordpress development as fast as possible.
 I've chosen to go with Sage 9 because it's in active development and as such is
 perfect for the kind of things that I've created this repository for.
 
-  $ docker-compose build && docker-compose up
+ $ docker-compose up -d
+
+You'll find your Wordpress installation on http://localhost:8080 out of which
+you'll be able to access and begin the installation process.
+
+As of database configurations, you'll find them specified in you
+docker-compose.yml as such:
+
+ MYSQL_ROOT_PASSWORD: wpdocker
+ MYSQL_USER: wpdocker
+ MYSQL_PASSWORD: wpdocker
+ MYSQL_DATABASE: wpdocker
+
+And as host you'll simply put **mariadb** and you'll be guided to finalise the
+installation.
+
+Good luck and happy hacking!
