@@ -6,6 +6,7 @@ started with your Wordpress development as fast as possible.
 
 ## Features
 * PHP7.0, NGINX and MariaDB
+* Comes with phpMyAdmin
 * Comes preloaded with Underscores, Sage 9 and Bones
 * Persistence already configured
 * Battery included
