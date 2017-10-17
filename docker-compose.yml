@@ -50,7 +50,6 @@ services:
     links:
       - fpm
       - mariadb
-      - redis
     volumes:
       - ./code:/var/www/html
       - ./conf/nginx/sites:/etc/nginx/sites-available
