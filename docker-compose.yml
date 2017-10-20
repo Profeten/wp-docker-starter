@@ -19,7 +19,7 @@ services:
     environment:
       PMA_HOST: mariadb
       PMA_USER: root
-      PMA_PASSWORD: wpd
+      PMA_PASSWORD: wpdocker
     ports:
       - 8081:80
 
